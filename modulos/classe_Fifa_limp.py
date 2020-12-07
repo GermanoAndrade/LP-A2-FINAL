@@ -61,7 +61,7 @@ class Fifa_limp():
         self.dataframe[column] = self.dataframe[column].apply(fa.pes_para_cm)
        
     def trocar_lbs_para_kg(self,column):
-        """Aplica a função trocar_lbs_para_kg() -> módulo [limpeza_dados_fifa.py]- no na coluna especificada.
+        """Aplica a função trocar_lbs_para_kg() -> módulo [limpeza_dados_fifa.py]- na coluna especificada.
         
 
         Parameters
