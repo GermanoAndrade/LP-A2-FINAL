@@ -72,7 +72,7 @@ def preco_str_p_int(value):
         return int(value_int)
 
 def traduz_posicao(position):
-    """
+    """Função que traduz a string com a sigla da posição em uma string com nome da posição.
     
 
     Parameters
