@@ -11,23 +11,23 @@ df_fifa = pd.read_csv('../dataframes/df_fifa.csv')
 df_fifa_2 = df_fifa[["Overall","Value","Wage","Release_Clause"]]
 df_fifa_2.dropna(inplace=True)
 
-# variável preditora : Release_Clause
-# variável alvo : Overall
+# variável preditora : Value
+# variável alvo : Release_Clause
 
-X_sm = sm.add_constant(df_fifa_2["Release_Clause"])
-results = sm.OLS(df_fifa_2["Value"], X_sm).fit()
+X_sm = sm.add_constant(df_fifa_2["Value"])
+results = sm.OLS(df_fifa_2["Release_Clause"], X_sm).fit()
 
 print(results.summary())
 
 #Gráfico de correlação
-plt.scatter(df_fifa_2["Release_Clause"], df_fifa_2["Value"])
-plt.xlabel("Valor da quebra de contrato do jogador")
-plt.ylabel("Valor de mercado do jogador")
-plt.title("Valor de mercado \n x \n Valor da quebra de contrato")
+plt.scatter(df_fifa_2["Value"], df_fifa_2["Release_Clause"])
+plt.xlabel("Valor de mercado do jogador")
+plt.ylabel("Valor da quebra do contrato do jogador")
+plt.title("Valor de mercado \n x \n Valor da quebra do contrato")
 plt.show()
 
-# plt.scatter(model.predict(X_treino), model.predict(X_treino) - Y_treino, color = "green", s = 10, label = "Treino")
-# plt.scatter(model.predict(X_teste), model.predict(X_teste) - Y_teste, color = "blue", s = 10, label = "Teste")
-# plt.show()
+#Observa-se um alto grau de correlação entre a quebra do contrato
+#de um jogador com o seu valor de mercado
+#Que encontramos um R² do modelo feito aproximado de 0,935
 
 
