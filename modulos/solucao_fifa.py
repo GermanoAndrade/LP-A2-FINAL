@@ -53,7 +53,7 @@ print(melhor_time_atual())
  
 #Questão 2
 df_fifa_novo = df_fifa[df_fifa["Age"] < 25]
-df_fifa_novo = df_fifa.sort_values(by = "Potential", ascending= False)
+df_fifa_novo = df_fifa_novo.sort_values(by = "Potential", ascending= False)
 
             
 def melhor_time_futuro():
@@ -85,6 +85,36 @@ def porcentagem_canhoto(num,df):
 
 print(porcentagem_canhoto(50,df_fifa))
         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
