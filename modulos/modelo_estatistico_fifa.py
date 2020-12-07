@@ -26,6 +26,8 @@ plt.ylabel("Valor da quebra do contrato do jogador")
 plt.title("Valor de mercado \n x \n Valor da quebra do contrato")
 plt.show()
 
-
+#Observa-se um alto grau de correlação entre a quebra do contrato
+#de um jogador com o seu valor de mercado
+#Que encontramos um R² do modelo feito aproximado de 0,935
 
 
