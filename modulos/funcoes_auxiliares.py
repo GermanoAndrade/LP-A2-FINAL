@@ -46,7 +46,7 @@ def lbs_para_kg(weight):
         return np.NaN
 
 def preco_str_p_int(value):
-    """Função que transforma uma string contendo o valor, na forma MK(M = Milhões, K = Milhares), em um float com o valor real
+    """Função que transforma uma string contendo o valor, na forma MK(M = Milhões, K = Milhares), em um float com o valor real.
     
 
     Parameters
