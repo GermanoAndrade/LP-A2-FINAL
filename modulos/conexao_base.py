@@ -26,3 +26,18 @@ sql = """SELECT * FROM INFORMATION_SCHEMA.TABLES"""
 
 #Usando pandas para fazer dataframe das queries
 df = pd.read_sql(sql, cnxn)
+
+#Transformando a tabela real_state_values em dataframe
+sql = """SELECT * FROM real_state.real_state_values"""
+df_rs = pd.read_sql(sql, cnxn)
+
+#Transformando a tabela fifa_players em dataframe
+sql = """SELECT * FROM fifa.fifa_players"""
+df_fifa = pd.read_sql(sql, cnxn)
+
+
+
+
+
+
+
