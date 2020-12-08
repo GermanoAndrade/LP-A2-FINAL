@@ -56,8 +56,8 @@ def preco_str_p_int(value):
 
     Returns
     -------
-    float
-        Float com o preço real do jogador.
+    int
+        Int com o preço real do jogador.
 
     """
     if value in [None,np.NaN]:
