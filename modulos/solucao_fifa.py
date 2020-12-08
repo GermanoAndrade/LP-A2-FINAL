@@ -7,6 +7,8 @@ df_fifa = pd.read_csv('../dataframes/df_fifa.csv')
 #Início das soluções para a primeira base de dados
 
 #Questão 1
+print(40*"=-")
+print("Questão 1")
 
 df_fifa.sort_values(by = "Overall", ascending= False, inplace = True)
 
@@ -51,7 +53,9 @@ def melhor_time_atual():
 
 print(melhor_time_atual())    
  
+print(40*"=-")
 #Questão 2
+print("Questão 2")
 df_fifa_novo = df_fifa[df_fifa["Age"] < 25]
 df_fifa_novo = df_fifa_novo.sort_values(by = "Potential", ascending= False)
 
@@ -71,8 +75,9 @@ def melhor_time_futuro():
         
 
 print(melhor_time_futuro())
-
+print(40*"=-")
 #Questão 3
+print("Questão 3")
 
 def porcentagem_canhoto(num,df):
     a = df["Preferred_Foot"].iloc[0:num+1]
@@ -84,7 +89,7 @@ def porcentagem_canhoto(num,df):
     return f"A porcentagem dos canhotos em relação aos {num} mais bem avaliados é de {round(result,2)}%"
 
 print(porcentagem_canhoto(50,df_fifa))
-        
+print(40*"=-")        
 
 
 
