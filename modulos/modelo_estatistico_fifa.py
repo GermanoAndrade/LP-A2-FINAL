@@ -1,7 +1,5 @@
-import pyodbc
 import pandas as pd
-import numpy as np
-from sklearn import datasets, linear_model, metrics, model_selection
+from sklearn import linear_model, model_selection
 import statsmodels.api as sm
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -21,10 +19,13 @@ results = sm.OLS(df_fifa_2["Release_Clause"], X_sm).fit()
 print(results.summary())
 
 #Gráfico de correlação
-sns.lmplot(x = "Value", y = "Release_Clause",data=df_fifa_2)
+sns.lmplot(x = "Value", y = "Release_Clause",data=df_fifa_2, line_kws={'color': 'red'})
 plt.xlabel("Valor de mercado do jogador")
 plt.ylabel("Valor da quebra do contrato do jogador")
-plt.title("Valor de mercado \n x \n Valor da quebra do contrato")
+plt.title("Valor de mercado \n x \n Valor da quebra do contrato", fontweight='bold')
+name = "../galeria/{}/Modelo_estatistico_fifa_1.{}"
+plt.savefig(name.format("PNG", "png"))
+plt.savefig(name.format("PDF", "pdf"))
 plt.show()
 
 #Observa-se um alto grau de correlação entre a quebra do contrato
@@ -48,15 +49,27 @@ model = linear_model.LinearRegression()
 model.fit(X_treino, Y_treino)
 
 Y_previsto = model.predict(X_teste)
-
+fig = plt.figure()  
 plt.scatter(Y_teste, Y_previsto)
+fig.set_size_inches(6, 6)
 plt.xlabel("Valor do Jogador")
 plt.ylabel("Valor do Jogador Previsto")
-plt.title("Valor do Jogador \n x \n Valor do Jogador Previsto")
+plt.title("Valor do Jogador \n x \n Valor do Jogador Previsto", fontweight='bold')
+name = "../galeria/{}/Modelo_estatistico_fifa_2.{}"
+plt.savefig(name.format("PNG", "png"))
+plt.savefig(name.format("PDF", "pdf"))
 plt.show()
 
+fig = plt.figure()
 plt.scatter(model.predict(X_treino), model.predict(X_treino) - Y_treino, color = "green", s = 10, label = "Treino")
 plt.scatter(model.predict(X_teste), model.predict(X_teste) - Y_teste, color = "blue", s = 10, label = "Teste")
+
+fig.set_size_inches(6, 6)
+plt.legend()
+plt.title("Diferença entre treino e teste", fontweight='bold')
+name = "../galeria/{}/Modelo_estatistico_fifa_3.{}"
+plt.savefig(name.format("PNG", "png"))
+plt.savefig(name.format("PDF", "pdf"))
 plt.show()
 
 print("\n####################################\n")
