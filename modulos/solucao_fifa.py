@@ -135,7 +135,8 @@ def porcentagem_canhoto(num,df):
         return f"A porcentagem dos canhotos em relação aos {num} mais bem avaliados é de {round(result,2)}%"
     except TypeError:
         print("A variável num precisa ser do tipo int!")
-   
+        return "A variável num precisa ser do tipo int!"
+        
 
 
 if __name__ == '__main__':
