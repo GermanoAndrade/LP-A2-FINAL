@@ -25,10 +25,14 @@ print(results.params[0])
 print(results.params[1])
 
 #Gráfico de correlação
-sns.lmplot(x = "NOX", y = "INDUS",data=df_real_state)
+sns.lmplot(x = "NOX", y = "INDUS",data=df_real_state, line_kws={'color': 'red'})
 plt.xlabel("nitric oxides concentration")
 plt.ylabel("proportion of non-retail business")
-plt.title("nitric oxides concentration \n x \n proportion of non-retail business")
+plt.title("nitric oxides concentration \n x \n proportion of non-retail business", fontweight='bold')
+name = "../galeria/{}/Modelo_estatistico_rsv_1.{}"
+plt.savefig(name.format("PNG", "png"))
+plt.savefig(name.format("PDF", "pdf"))
+plt.show()
 plt.show()
 
 
@@ -56,11 +60,18 @@ Y_previsto = model.predict(X_teste)
 plt.scatter(Y_teste, Y_previsto)
 plt.xlabel("Taxa de Imposto")
 plt.ylabel("Taxa de Imposto Prevista")
-plt.title("Taxa de Imposto \n x \n Taxa de Imposto Prevista")
+plt.title("Taxa de Imposto \n x \n Taxa de Imposto Prevista", fontweight='bold')
+name = "../galeria/{}/Modelo_estatistico_rsv_2.{}"
+plt.savefig(name.format("PNG", "png"))
+plt.savefig(name.format("PDF", "pdf"))
 plt.show()
 
 plt.scatter(model.predict(X_treino), model.predict(X_treino) - Y_treino, color = "green", s = 10, label = "Treino")
 plt.scatter(model.predict(X_teste), model.predict(X_teste) - Y_teste, color = "blue", s = 10, label = "Teste")
+plt.title("Diferença entre treino e teste", fontweight='bold')
+name = "../galeria/{}/Modelo_estatistico_rsv_3.{}"
+plt.savefig(name.format("PNG", "png"))
+plt.savefig(name.format("PDF", "pdf"))
 plt.show()
 
 print("\n####################################\n")
