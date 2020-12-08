@@ -5,8 +5,8 @@ from matplotlib import pyplot as plt
 import seaborn as sns
 import solucao_fifa as sf
 
+##FIFA 19
 df_fifa = pd.read_csv("../dataframes/df_fifa.csv")
-
 
 time_dos_sonhos = sf.melhor_time_atual()
 print(time_dos_sonhos)
@@ -33,7 +33,7 @@ def plot_skills(index_player, dataframe, single_player = True, goalkeeper = Fals
     values = list(dataframe[skills].iloc[index])
     
     fig = plt.figure()    
-    fig.set_size_inches(6, 6)
+    fig.set_size_inches(6, 6.5)
     ax = fig.add_subplot(111,polar=True)
     plt.polar([skill+" "+str(value) for skill, value in zip(skills, values)], values,'b-p')
 
@@ -49,7 +49,7 @@ def plot_skills(index_player, dataframe, single_player = True, goalkeeper = Fals
 
 #Sem goleiro 
 jogs_linha = np.round(df_time_dos_sonhos[df_time_dos_sonhos["Position"]!= "Goleiro"].groupby("Time").mean()) 
-figura = plot_skills(0, jogs_linha, single_player=False, title = "jogadores de linha\ndo Time dos Sonhos")
+figura = plot_skills(0, jogs_linha, single_player=False, title = "Jogadores de linha\ndo Time dos Sonhos")
 name = "../galeria/{}/Time_dos_sonhos_Jogadores_de_linha.{}"
 plt.savefig(name.format("PNG", "png"))
 plt.savefig(name.format("PDF", "pdf"))
@@ -63,14 +63,12 @@ plt.savefig(name.format("PNG", "png"))
 plt.savefig(name.format("PDF", "pdf"))
 figura.show()
 
-
 time_futuro = sf.melhor_time_futuro()
 print(time_futuro)
 
 df_time_futuro = df_fifa[df_fifa["Name"].isin(time_futuro)][:-1].reset_index()
 print(df_time_futuro)
 df_time_futuro["Time"] = "Time Futuro"
-
 
 #Sem goleiro 
 jogs_linha = np.round(df_time_dos_sonhos[df_time_dos_sonhos["Position"]!= "Goleiro"].groupby("Time").mean()) 
@@ -101,6 +99,22 @@ plt.savefig(name.format("PDF", "pdf"))
 plt.show()
 plt.show()
 
+#Comparando os dois times em relação ao preço total
+preco_dos_times = [df_time_dos_sonhos["Value"].sum(), df_time_futuro["Value"].sum()]
+ax = sns.barplot(x = ["Time dos Sonhos", "Time Futuro"], y=preco_dos_times, palette=["#000000", "#7F7F7F"])
+#total = float(len(cinquenta_melhores))
+for p in ax.patches:
+    ax.text(p.get_x()+p.get_width()/2,
+            p.get_height()+6000000,
+            #'{:1.0f}%'.format(p.get_height()*100),
+            '€ {:1.0f}'.format(p.get_height()),
+            ha="center")
+plt.title("Comparação de preço total entre o\nTime dos Sonhos e o Time Futuro", fontweight='bold')
+plt.ylabel("Preço (em Mi)")
+name = "../galeria/{}/Comparação_entre_preço_dos_times.{}"
+plt.savefig(name.format("PNG", "png"))
+plt.savefig(name.format("PDF", "pdf"))
+plt.show()
 
 #Questão 3
 cinquenta_melhores = df_fifa.sort_values(by = "Overall", ascending= False).iloc[:50].reset_index()
@@ -116,7 +130,6 @@ for p in ax.patches:
             p.get_height()+.006,
             '{:1.0f}%'.format(p.get_height()*100),
             ha="center")
-    print(p.get_x())
 plt.title("Porcentagem de canhotos\nentre os 50 mais bem avaliados", fontweight='bold')
 plt.ylabel("Porcentagem")
 plt.xlabel("Pé Dominante")
@@ -127,6 +140,19 @@ plt.savefig(name.format("PDF", "pdf"))
 plt.show()
 
 
+##REAL STATE VALUES
+df_rs = pd.read_csv('../dataframes/df_real_state.csv')
+#df_rs.sort_values(by ="CRIM", inplace=True,ascending= False)
+print(df_rs)
+sns.scatterplot(x = "CRIM", y="DIS", data = df_rs)
+plt.title("Distância\nx\nTaxa de Crime", fontweight='bold')
+plt.ylabel("Distância")
+plt.xlabel("Taxa de crime")
+
+name = "../galeria/{}/Distancia_vs_taxa_de_crime.{}"
+plt.savefig(name.format("PNG", "png"))
+plt.savefig(name.format("PDF", "pdf"))
+plt.show()
 
 
 
