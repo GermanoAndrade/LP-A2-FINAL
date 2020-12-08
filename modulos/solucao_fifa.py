@@ -70,9 +70,9 @@ def melhor_time_atual():
     return [gol, zag1, zag2, lat1, lat2, mei1, mei2, mei3, ata1, ata2, ata3]
     
 
-def print_melhor_time_atual():
-    gol, zag1, zag2, lat1, lat2, mei1, mei2, mei3, ata1, ata2, ata3 = melhor_time_atual()
-    return f"""O melhor time atual é formado por:
+def print_melhor_time(funcao_atual_ou_futuro):
+    gol, zag1, zag2, lat1, lat2, mei1, mei2, mei3, ata1, ata2, ata3 = funcao_atual_ou_futuro
+    return f"""O melhor time é formado por:
         -> Goleiro-O melhor goleiro será o {gol}
         -> Zagueiro-A melhor dupla de zagueiro será {zag1} e {zag2}
         -> Laterais-A melhor dupla de lateral será {lat1} e {lat2}
@@ -95,17 +95,13 @@ def melhor_time_futuro():
         String com os jogadores do time.
 
     """
-    a = melhores("Goleiro",df_fifa_novo)
-    b = melhores("Zagueiros",df_fifa_novo)
-    c = melhores("Laterais",df_fifa_novo)
-    d = melhores("Meias",df_fifa_novo)
-    e = melhores("Atacantes",df_fifa_novo) 
-    return f"""O melhor time do futuro será formado por:
-        -> Goleiro-{a}
-        -> Zagueiros-{b}
-        -> Laterais-{c}
-        -> Meias-{d}
-        -> Atacantes->{e}"""
+    gol = melhores("Goleiro",df_fifa_novo)
+    zag1, zag2 = melhores("Zagueiro",df_fifa_novo)
+    lat1, lat2 = melhores("Lateral",df_fifa_novo)
+    mei1, mei2, mei3 = melhores("Meia",df_fifa_novo)
+    ata1, ata2, ata3 = melhores("Atacante",df_fifa_novo)
+    return [gol, zag1, zag2, lat1, lat2, mei1, mei2, mei3, ata1, ata2, ata3]
+    
         
 
 #Questão 3
@@ -146,12 +142,12 @@ if __name__ == '__main__':
     #Questão 1
     print(40*"=-")
     print("Questão 1")
-    print(print_melhor_time_atual())
+    print(print_melhor_time(melhor_time_atual()))
     
     print(40*"=-")
     #Questão 2
     print("Questão 2")
-    print(melhor_time_futuro())
+    print(print_melhor_time(melhor_time_futuro()))
     
     print(40*"=-")
     #Questão 3
