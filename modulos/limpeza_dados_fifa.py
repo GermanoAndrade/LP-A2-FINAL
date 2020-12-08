@@ -20,8 +20,11 @@ fifa.trocar_valores_str_p_int("Release_Clause")
 #Traduz as posições, para posições mais comuns entre os brasileiros
 fifa.traduzir_posicoes("Position")
 
+fifa.cria_skills()
+
 #Pegando as colunas interessantes para o trabalhho
-list_colunas = ["Name","Age","Nationality","Overall","Potential","Club","Jersey_Number","Value","Wage","Release_Clause","Preferred_Foot","Height","Weight","Position"]
+list_colunas = ["Name","Age","Nationality","Overall","Potential","Club","Jersey_Number","Value","Wage","Release_Clause","Preferred_Foot","Height","Weight","Position",'PAC', 'SHO', 'PAS', 'DRI', 'DEF', 'PHY', 'DIV', 'HAN', 'KIC', 'POS',
+       'REF']
 
 fifa.colunas_desejadas(list_colunas)
 
