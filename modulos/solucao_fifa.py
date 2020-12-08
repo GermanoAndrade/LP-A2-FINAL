@@ -72,6 +72,7 @@ def melhor_time_futuro():
         -> Atacantes->{e}"""
         
 
+
 #Questão 3
 
 def porcentagem_canhoto(num,df):
@@ -82,12 +83,23 @@ def porcentagem_canhoto(num,df):
             s += 1
     result = (s/num)*100
     return f"A porcentagem dos canhotos em relação aos {num} mais bem avaliados é de {round(result,2)}%"
-        
+
 
 
 if __name__ == '__main__':
+    #Questão 1
+    print(40*"=-")
+    print("Questão 1")
     print(print_melhor_time_atual())
+    
+    print(40*"=-")
+    #Questão 2
+    print("Questão 2")
     print(melhor_time_futuro())
+    
+    print(40*"=-")
+    #Questão 3
+    print("Questão 3")
     print(porcentagem_canhoto(50,df_fifa))
 
 
