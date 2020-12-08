@@ -30,6 +30,8 @@ class Fifa_limp():
         Escreve o dataframe em um csv.
     arredondar_valores()
         Arredonda valores.
+    cria_skills()
+        Cria habilidades
     """
     
     def __init__(self, dataframe):
@@ -161,7 +163,9 @@ class Fifa_limp():
         self.dataframe[column] = self.dataframe[column].apply(lambda x : round(x,precisao))
         
     def cria_skills(self):
-        
+        """Cria os atributos técnicos dos jogadores baseando-se nas habilidades de cada um.
+
+        """
         PAC = ["Acceleration", "SprintSpeed"]
         SHO = ["Positioning", "Finishing", "ShotPower", "LongShots", "Volleys", "Penalties"]
         PAS = ["Vision", "Crossing", "FKAccuracy", "ShortPassing", "LongPassing", "Curve"]
