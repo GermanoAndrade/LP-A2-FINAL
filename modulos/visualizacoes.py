@@ -9,12 +9,12 @@ df_fifa = pd.read_csv("../dataframes/df_fifa.csv")
 
 
 time_dos_sonhos = sf.melhor_time_atual()
-
 print(time_dos_sonhos)
 
 df_time_dos_sonhos = df_fifa[df_fifa["Name"].isin(time_dos_sonhos)][:-2].reset_index()
 print(df_time_dos_sonhos)
 df_time_dos_sonhos["Time"] = "Time dos Sonhos"
+
 
 def plot_skills(index_player, dataframe, single_player = True, goalkeeper = False, title = False):
     index = index_player
@@ -38,43 +38,85 @@ def plot_skills(index_player, dataframe, single_player = True, goalkeeper = Fals
     plt.polar([skill+" "+str(value) for skill, value in zip(skills, values)], values,'b-p')
 
     if not title:
-        title = dataframe["Name"].iloc[index]
+        nome = dataframe["Name"].iloc[index]
+        title = '{} Skills'.format(nome)
 
-    plt.title('{} Skills'.format(title), fontweight ="bold", va='bottom', y=1.1)
+    plt.title(title, fontweight ="bold", va='bottom', y=1.1)
     ax.fill([skill+" "+str(value) for skill, value in zip(skills, values)], values, color="mediumseagreen", alpha = .4)
     return plt
 
 
 
-#print(df_time_dos_sonhos.groupby("Time").mean())
-
-#for i in df_time_dos_sonhos.index:
- #   plot_skills(i, df_time_dos_sonhos)
- 
 #Sem goleiro 
-agrupado = np.round(df_time_dos_sonhos[df_time_dos_sonhos["Position"]!= "Goleiro"].groupby("Time").mean()) 
-figura = plot_skills(0, agrupado, single_player=False, title = "Time dos Sonhos")
-name = "../galeria/{}/Time_dos_sonhos_Inteiro.{}"
+jogs_linha = np.round(df_time_dos_sonhos[df_time_dos_sonhos["Position"]!= "Goleiro"].groupby("Time").mean()) 
+figura = plot_skills(0, jogs_linha, single_player=False, title = "jogadores de linha\ndo Time dos Sonhos")
+name = "../galeria/{}/Time_dos_sonhos_Jogadores_de_linha.{}"
 plt.savefig(name.format("PNG", "png"))
 plt.savefig(name.format("PDF", "pdf"))
 figura.show()
 
 #Só o goleiro
-agrupado = np.round(df_time_dos_sonhos[df_time_dos_sonhos["Position"]== "Goleiro"].groupby("Time").mean()) 
-figura = plot_skills(0, agrupado, single_player=False, goalkeeper = True, title = "Goleiro")
+goleiro = np.round(df_time_dos_sonhos[df_time_dos_sonhos["Position"]== "Goleiro"].groupby("Time").mean()) 
+figura = plot_skills(0, goleiro, single_player=False, goalkeeper = True, title = "Goleiro\ndo Time dos Sonhos")
 name = "../galeria/{}/Time_dos_sonhos_Goleiro.{}"
 plt.savefig(name.format("PNG", "png"))
 plt.savefig(name.format("PDF", "pdf"))
 figura.show()
 
 
+time_futuro = sf.melhor_time_futuro()
+print(time_futuro)
+
+df_time_futuro = df_fifa[df_fifa["Name"].isin(time_futuro)][:-1].reset_index()
+print(df_time_futuro)
+df_time_futuro["Time"] = "Time Futuro"
+
+
+#Sem goleiro 
+jogs_linha = np.round(df_time_dos_sonhos[df_time_dos_sonhos["Position"]!= "Goleiro"].groupby("Time").mean()) 
+figura = plot_skills(0, jogs_linha, single_player=False, title = "Jogadores de linha\ndo Time Futuro")
+name = "../galeria/{}/Time_Futuro_Jogadores_de_linha.{}"
+plt.savefig(name.format("PNG", "png"))
+plt.savefig(name.format("PDF", "pdf"))
+figura.show()
+
+#Só o goleiro
+goleiro = np.round(df_time_dos_sonhos[df_time_dos_sonhos["Position"]== "Goleiro"].groupby("Time").mean()) 
+figura = plot_skills(0, goleiro, single_player=False, goalkeeper = True, title = "Goleiro\ndo Time Futuro")
+name = "../galeria/{}/Time_Futuro_Goleiro.{}"
+plt.savefig(name.format("PNG", "png"))
+plt.savefig(name.format("PDF", "pdf"))
+figura.show()
+
+#Comparando os dois times em relação à idade
+sns.distplot(df_time_dos_sonhos["Age"], label="Time dos Sonhos", color="red")
+sns.distplot(df_time_futuro["Age"], label="Time Futuro", color="blue")
+plt.legend()
+plt.title("Diferença de Idade entre o\nTime dos Sonhos e o Time Futuro", fontweight='bold')
+plt.ylabel("Densidade")
+plt.xlabel("Idade")
+name = "../galeria/{}/Diferença_de_idade_entre_os_times.{}"
+plt.savefig(name.format("PNG", "png"))
+plt.savefig(name.format("PDF", "pdf"))
+plt.show()
+plt.show()
+
+
+#Questão 3
 cinquenta_melhores = df_fifa.sort_values(by = "Overall", ascending= False).iloc[:50].reset_index()
 
 
 print(cinquenta_melhores["Preferred_Foot"].value_counts(normalize=True).index)
 dir_esq = cinquenta_melhores["Preferred_Foot"].value_counts(normalize=True)
 
-sns.barplot(x = dir_esq.index, y = list(dir_esq), order=["Left", "Right"], palette=["#000000", "#7F7F7F"])
+ax = sns.barplot(x = dir_esq.index, y = list(dir_esq), order=["Left", "Right"], palette=["#000000", "#7F7F7F"])
+total = float(len(cinquenta_melhores))
+for p in ax.patches:
+    ax.text(p.get_x()+p.get_width()/2,
+            p.get_height()+.006,
+            '{:1.0f}%'.format(p.get_height()*100),
+            ha="center")
+    print(p.get_x())
 plt.title("Porcentagem de canhotos\nentre os 50 mais bem avaliados", fontweight='bold')
 plt.ylabel("Porcentagem")
 plt.xlabel("Pé Dominante")
@@ -83,10 +125,6 @@ name = "../galeria/{}/Canhotos_entre_os_melhores.{}"
 plt.savefig(name.format("PNG", "png"))
 plt.savefig(name.format("PDF", "pdf"))
 plt.show()
-
-
-
-
 
 
 
