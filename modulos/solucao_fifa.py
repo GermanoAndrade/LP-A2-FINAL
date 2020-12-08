@@ -102,7 +102,25 @@ def melhor_time_futuro():
     ata1, ata2, ata3 = melhores("Atacante",df_fifa_novo)
     return [gol, zag1, zag2, lat1, lat2, mei1, mei2, mei3, ata1, ata2, ata3]
     
-        
+def valor_total_time(funcao_atual_ou_futuro):
+   """Função que retorna o valor total do time.
+    
+
+    Parameters
+    ----------
+    funcao_atual_ou_futuro : function
+        Função que retorna os jogadores para calcular o valor da soma dos valores individuais de cada um.
+
+    Returns
+    -------
+    float
+        Preço total do time.
+
+   """
+   dataframe = df_fifa[df_fifa["Name"].isin(funcao_atual_ou_futuro)]
+   sli = 11 - len(dataframe)
+   dataframe = dataframe[:sli].reset_index()
+   return dataframe["Value"].sum()         
 
 #Questão 3
 
@@ -144,11 +162,14 @@ if __name__ == '__main__':
     print(40*"=-")
     print("Questão 1")
     print(print_melhor_time(melhor_time_atual()))
+    print("Um empresário em busca de retornos em curto prazo deve desembolsar cerca de {} de Euros.".format(valor_total_time(melhor_time_atual())))
     
     print(40*"=-")
     #Questão 2
     print("Questão 2")
     print(print_melhor_time(melhor_time_futuro()))
+    print("Um empresário em busca de retornos em longo prazo deve desembolsar cerca de {} de Euros.".format(valor_total_time(melhor_time_futuro())))
+    
     
     print(40*"=-")
     #Questão 3
