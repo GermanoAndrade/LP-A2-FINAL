@@ -9,8 +9,8 @@ class Fifa_limp():
 
     Attributes
     ----------
-    dataframe : pandas.core.frame.DataFrame
-        Dataframe.
+    dataframe : pandas.core.frame.dataframe
+        dataframe.
 
     Methods
     -------
@@ -27,7 +27,7 @@ class Fifa_limp():
     porcentagem_overall_potential()
         Adiciona uma nova coluna que calcula a porcentagem da diferença de potencial e overall.
     escrever_csv()
-        Escreve o DataFrame em um csv.
+        Escreve o dataframe em um csv.
     arredondar_valores()
         Arredonda valores.
     """
@@ -38,8 +38,8 @@ class Fifa_limp():
 
         Parameters
         ----------
-        dataframe : pandas.core.frame.DataFrame
-            Dataframe.
+        dataframe : pandas.core.frame.dataframe
+            dataframe.
 
         
 
@@ -53,7 +53,7 @@ class Fifa_limp():
         Parameters
         ----------
         column : pandas.core.series.Series
-            Coluna do Dataframe.
+            Coluna do dataframe.
 
     
 
@@ -67,7 +67,7 @@ class Fifa_limp():
         Parameters
         ----------
         column : pandas.core.series.Series
-            Coluna do Dataframe.
+            Coluna do dataframe.
 
 
         """
@@ -80,7 +80,7 @@ class Fifa_limp():
         Parameters
         ----------
         column : pandas.core.series.Series
-            Coluna do Dataframe.
+            Coluna do dataframe.
 
 
         """
@@ -93,14 +93,14 @@ class Fifa_limp():
         Parameters
         ----------
         column : pandas.core.series.Series
-            Coluna do Dataframe.
+            Coluna do dataframe.
 
 
         """
         self.dataframe[column] = self.dataframe[column].apply(fa.traduz_posicao)
     
     def colunas_desejadas(self, list_colunas):
-        """Seleciona uma lista de colunas desejadas do Dataframe.
+        """Seleciona uma lista de colunas desejadas do dataframe.
         
 
         Parameters
@@ -131,7 +131,7 @@ class Fifa_limp():
         self.dataframe[new_column] = 100*((self.dataframe[potential]-self.dataframe[overall])/self.dataframe[overall])
         
     def escrever_csv(self, caminho_arquivo):
-        """Escreve o Dataframe em um arquivo csv.
+        """Escreve o dataframe em um arquivo csv.
         
 
         Parameters
@@ -151,7 +151,7 @@ class Fifa_limp():
         Parameters
         ----------
         column : pandas.core.series.Series
-            Coluna do Dataframe.
+            Coluna do dataframe.
         precisao : int
             Quantas casas decimais se quer arredondar.
 
@@ -160,4 +160,26 @@ class Fifa_limp():
         """
         self.dataframe[column] = self.dataframe[column].apply(lambda x : round(x,precisao))
         
+    def cria_skills(self):
+        
+        PAC = ["Acceleration", "SprintSpeed"]
+        SHO = ["Positioning", "Finishing", "ShotPower", "LongShots", "Volleys", "Penalties"]
+        PAS = ["Vision", "Crossing", "FKAccuracy", "ShortPassing", "LongPassing", "Curve"]
+        DRI = ["Agility", "Balance", "Reactions", "BallControl", "Dribbling", "Composure"]
+        DEF = ["Interceptions", "HeadingAccuracy", "Marking", "StandingTackle", "SlidingTackle"]
+        PHY = ["Jumping", "Stamina", "Strength", "Aggression"]
+        GOALKEEPING = ["GKDiving", "GKHandling", "GKKicking", "GKPositioning", "GKReflexes"]
+        
+        
+        self.dataframe["PAC"] = round(self.dataframe[PAC].mean(axis=1))
+        self.dataframe["SHO"] = round(self.dataframe[SHO].mean(axis=1)) 
+        self.dataframe["PAS"] = round(self.dataframe[PAS].mean(axis=1)) 
+        self.dataframe["DRI"] = round(self.dataframe[DRI].mean(axis=1)) 
+        self.dataframe["DEF"] = round(self.dataframe[DEF].mean(axis=1)) 
+        self.dataframe["PHY"] = round(self.dataframe[PHY].mean(axis=1)) 
+        self.dataframe["DIV"] = self.dataframe[GOALKEEPING[0]] 
+        self.dataframe["HAN"] = self.dataframe[GOALKEEPING[1]] 
+        self.dataframe["KIC"] = self.dataframe[GOALKEEPING[2]] 
+        self.dataframe["POS"] = self.dataframe[GOALKEEPING[3]] 
+        self.dataframe["REF"] = self.dataframe[GOALKEEPING[4]]
 
